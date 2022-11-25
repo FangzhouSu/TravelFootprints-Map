@@ -10,6 +10,13 @@ https://www.yuque.com/u21204340/lqvo5o/curxuppw6ofgus5e
 
 https://www.yuque.com/u21204340/lqvo5o/zgbscgf3nyp8k0ie
 
+## 分支管理
+
+* 使用git flow规范进行开发
+
+* release/1.0内容
+  * 登录页开发 —— React router
+
 ## 技术栈
 
 * 前端：
