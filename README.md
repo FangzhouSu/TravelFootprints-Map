@@ -22,6 +22,7 @@ https://www.yuque.com/u21204340/lqvo5o/zgbscgf3nyp8k0ie
 * 前端：
   * React全家桶（React Hooks + React router + Redux/Mobx/Jotai）+ TypeScript
   * 前端工程化插件：Eslint/Prettier + create-react-app
+  * Electron：桌面端应用打包
 * 后端
   * nodejs
 * 地图相关功能：百度地图API
@@ -39,3 +40,7 @@ https://www.yuque.com/u21204340/lqvo5o/zgbscgf3nyp8k0ie
 待完成
 
 ## 二次开发相关
+
+## 项目亮点（论文重点）
+
+* 开发过程中遇到的问题
