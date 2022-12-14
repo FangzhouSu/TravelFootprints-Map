@@ -33,7 +33,8 @@ https://www.yuque.com/u21204340/lqvo5o/zgbscgf3nyp8k0ie
 ### 前端
 
 `npm install`
-`npm start`
+`npm run start:render`
+`npm run start:main`
 
 ### 后端
 
