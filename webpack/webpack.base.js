@@ -5,8 +5,12 @@ module.exports = {
   resolve: {
     // 当遇到 import A from './A' 时，会先寻找 A.js、找不到就去找 A.jsx，按照规则找，最后还是找不到，就会报错。
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    
+    // 添加别名
     alias: {
       '@src': path.join(__dirname, '../', 'app/renderer'),
+      '@assets': path.join(__dirname, '../', 'assets'),
+      '@common': path.join(__dirname, '../', 'app/renderer/common'),
     },
   },
   module: {

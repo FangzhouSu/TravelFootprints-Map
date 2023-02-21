@@ -1,19 +1,23 @@
 import React from 'react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Root from './container/root';
+import Root from '@src/container/root';
+import Map from '@src/container/map';
+import ROUTER from '@common/constants/router';
 
 function Router() {
   return (
     <HashRouter>
       <Switch>
-        {/* 👇 一定要添加 exact */}
-        <Route path="/" exact>
+        <Route path={ROUTER.root} exact>
           <Root />
+        </Route>
+        <Route path={ROUTER.map} exact>
+          <Map />
         </Route>
       </Switch>
 
       {/* 重定向到首页 */}
-      <Redirect to="/" />
+      <Redirect to={ROUTER.root} />
     </HashRouter>
   );
 }
