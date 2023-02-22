@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Root from '@src/container/root';
 import Map from '@src/container/map';
+import Login from '@src/container/login';
 import ROUTER from '@common/constants/router';
 
 function Router() {
@@ -13,6 +14,9 @@ function Router() {
         </Route>
         <Route path={ROUTER.map} exact>
           <Map />
+        </Route>
+        <Route path={ROUTER.login} exact>
+          <Login />
         </Route>
       </Switch>
 

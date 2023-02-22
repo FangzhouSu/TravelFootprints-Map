@@ -15,7 +15,7 @@ interface IProps {
 
 function Title({ text, styles }: IProps) {
   return (
-    <div style={styles} styleName="title">
+    <div style={styles}>
       {text}
       <Avatar />
     </div>

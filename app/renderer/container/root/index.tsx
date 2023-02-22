@@ -15,7 +15,7 @@ function Root() {
     } else {
       // 这里的url值为map对应的路由
       history.push(router.url);   
-      console.log('跳转到地图');   
+      console.log('跳转到登录页');
     }
   }
 
