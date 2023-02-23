@@ -1,34 +1,104 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router';
-import { Tabs, Input, Button } from 'antd';
+import { Tabs, Form, Input, Button, message } from 'antd';
 import type { TabsProps } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import ROUTER from '@common/constants/router';
-import './index.less'
+import { post } from '@common/utils/index';
+import Captcha from 'react-captcha-code';
+import './index.less';
 
 function Login() {
   const history = useHistory();
+  const [captcha, setCaptcha] = useState(''); // 更改后的验证码
+
+  // 登陆-提交表单信息
+  const onLogin = () => {
+    console.log('login');
+  };
+
+  // 注册-提交表单信息
+  const onRegister = async (values: any) => {
+    const { username, password, verify } = values;
+    console.log(username, password, verify);
+
+    // todo: 改用Form表单自己的校验规则
+    if (!username || username.length < 4) {
+      message.error('必须输入不少于四位字符的用户名!');
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      message.error('必须输入不少于六位字符的密码!');
+      return;
+    }
+
+    if (!verify || verify !== captcha) {
+      message.error('请确保自己输入正确的验证码!');
+      return;
+    }
+
+    try {
+      await post('/api/user/register', {
+        username,
+        password,
+      });
+      message.success('注册成功');
+    } catch (error: any) {
+      console.error('出现问题 注册失败');
+      message.error(error.msg);
+    }
+  };
+
+  // 注册-更新验证码
+  const handleCaptchaChange = useCallback((captcha: string) => {
+    console.log(captcha);
+    setCaptcha(captcha);
+  }, []);
 
   const loginForm = () => (
-    <div>
-      <Input placeholder="请输入用户名" prefix={<UserOutlined />} />
-      <Input.Password placeholder="input password" />
-      <Button type="primary" shape="round" size="large">
-        登录
-      </Button>
-    </div>
+    <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onLogin}>
+      <Form.Item name="username">
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      </Form.Item>
+      <Form.Item name="password">
+        <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          登录
+        </Button>
+      </Form.Item>
+    </Form>
   );
 
+  // 注册-判断表单提交时各项数据是否正确
   const registerForm = () => (
-    <div>
-      <Input placeholder="请输入用户名" prefix={<UserOutlined />} />
-      <Input.Password placeholder="input password" />
-      <Button shape="round" size="large">
-        注册
-      </Button>
-    </div>
+    <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onRegister}>
+      <Form.Item name="username">
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入您的用户名！" />
+      </Form.Item>
+      <Form.Item name="password">
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="请输入您的密码！"
+        />
+      </Form.Item>
+      <Form.Item name="verify">
+        <div styleName="captcha_box">
+          <Input prefix={<LockOutlined className="site-form-item-icon" />} type="verify" placeholder="请输入验证码！" />
+          <Captcha charNum={4} onChange={handleCaptchaChange} />
+        </div>
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit" className="login-form-button">
+          注册
+        </Button>
+      </Form.Item>
+    </Form>
   );
-  
+
   const items: TabsProps['items'] = [
     {
       key: 'login',
@@ -45,10 +115,7 @@ function Login() {
   return (
     <div styleName="login">
       <div styleName="auth">
-        <Tabs
-          defaultActiveKey="1"
-          items={items}
-        />
+        <Tabs defaultActiveKey="1" centered items={items} />
       </div>
     </div>
   );
