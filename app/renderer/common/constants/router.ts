@@ -1,16 +1,16 @@
 // 模块路径
 const ROUTER = {
   root: '/',
-  map: '/map',
   login: '/login',
+  map: '/map',
 };
 
 export default ROUTER;
 
 export const ROUTER_KEY = {
   root: 'root',
+  login: 'login',
   map: 'map',
-  login: '/login',
 };
 
 // 入口模块，TS 定义类型必须为 TSRouter.Item

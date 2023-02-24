@@ -8,17 +8,47 @@ import { post } from '@common/utils/index';
 import Captcha from 'react-captcha-code';
 import './index.less';
 
+interface FormSubmitProps {
+  username: string;
+  password: string;
+  verify?: string;
+}
+
 function Login() {
   const history = useHistory();
   const [captcha, setCaptcha] = useState(''); // 更改后的验证码
 
   // 登陆-提交表单信息
-  const onLogin = () => {
-    console.log('login');
+  const onLogin = async (values: FormSubmitProps) => {
+    const { username, password } = values;
+
+    // todo: 改用Form表单自己的校验规则
+    if (!username) {
+      message.error('请输入用户名!');
+      return;
+    }
+
+    if (!password) {
+      message.error('请输入密码!');
+      return;
+    }
+
+    try {
+      const { data } = await post('/api/user/login', {
+        username,
+        password,
+      });
+      console.log('the token is:', data.token);
+      localStorage.setItem('token', data.token);
+      message.success('登陆成功！');
+      history.push(ROUTER.map);
+    } catch (error: any) {
+      message.error(error.msg);
+    }
   };
 
   // 注册-提交表单信息
-  const onRegister = async (values: any) => {
+  const onRegister = async (values: FormSubmitProps) => {
     const { username, password, verify } = values;
     console.log(username, password, verify);
 
@@ -43,9 +73,9 @@ function Login() {
         username,
         password,
       });
-      message.success('注册成功');
+      message.success('注册成功!');
     } catch (error: any) {
-      console.error('出现问题 注册失败');
+      console.error('出现问题 注册失败!');
       message.error(error.msg);
     }
   };
@@ -59,10 +89,18 @@ function Login() {
   const loginForm = () => (
     <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onLogin}>
       <Form.Item name="username">
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          type="username"
+          placeholder="请输入您的用户名！"
+        />
       </Form.Item>
       <Form.Item name="password">
-        <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="请输入您的密码！"
+        />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
@@ -76,7 +114,11 @@ function Login() {
   const registerForm = () => (
     <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onRegister}>
       <Form.Item name="username">
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入您的用户名！" />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          type="username"
+          placeholder="请输入您的用户名！"
+        />
       </Form.Item>
       <Form.Item name="password">
         <Input
