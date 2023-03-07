@@ -59,18 +59,12 @@ const devConfig = {
       {
         test: /\.css$/,
         include: [/[\\/]node_modules[\\/].*antd/],
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader'}
-        ]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.less$/,
         include: [/[\\/]node_modules[\\/].*antd/],
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'less-loader'}
-        ]
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
