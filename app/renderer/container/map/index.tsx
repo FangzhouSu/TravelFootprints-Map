@@ -7,7 +7,6 @@ import UserInfo from '../userInfo/index';
 
 function TravelMap() {
   const history = useHistory();
-  const [avater, setAvater] = useState('');
 
   const MainMap = () => (
     <div>
@@ -29,27 +28,11 @@ function TravelMap() {
     </div>
   );
 
-  useEffect(() => {
-    // todo: fetchUserInfo时会错发一个7001端口的login接口 怪事！
-    // fetchUserInfo();
-    console.log('enter the map');
-  }, []);
-
-  const fetchUserInfo = async () => {
-    try {
-      const { data } = await get('api/user/get_userinfo');
-      setAvater(data.avatar);
-    } catch (err: any) {
-      console.error(err.msg);
-    }
-  };
-
   return (
     <div>
-      <UserInfo onClickUser={fetchUserInfo} />
+      <UserInfo />
       <APILoader akay="1345e9c65fb53dce6257f421266266dc">
         <MainMap />
-        <button onClick={() => history.push('/')}>backToRoot</button>
       </APILoader>
     </div>
   );
