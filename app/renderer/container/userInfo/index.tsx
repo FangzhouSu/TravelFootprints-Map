@@ -15,7 +15,7 @@ interface userInfoProps {
   // 暂时没有需要传入的数据
 }
 
-// todo: 弄明白上传头像时 file 的数据类型
+// TODO: 弄明白上传头像时 file 的数据类型
 // interface fileProps {
 //   file: {
 //     uid?: string; // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突
@@ -84,7 +84,7 @@ const UserInfo = (userInfo: userInfoProps) => {
     setIsModalOpen(false);
   };
 
-  // 上传头像 & todo: file的类型 & 搁置上传头像功能-本地做这个功能没啥必要
+  // TODO: file的类型 & 回头再做上传头像功能
   // const handleSelect = (file: any) => {
   //   console.log('file.file', file.file);
   //   if (file && file.file.size > 200 * 1024) {

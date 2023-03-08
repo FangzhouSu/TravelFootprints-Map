@@ -22,7 +22,7 @@ function Login() {
   const onLogin = async (values: FormSubmitProps) => {
     const { username, password } = values;
 
-    // todo: 改用Form表单自己的校验规则
+    // TODO: 改用Form表单自己的校验规则
     if (!username) {
       message.error('请输入用户名!');
       return;
@@ -52,7 +52,7 @@ function Login() {
     const { username, password, verify } = values;
     console.log(username, password, verify);
 
-    // todo: 改用Form表单自己的校验规则
+    // TODO: 改用Form表单自己的校验规则
     if (!username || username.length < 4) {
       message.error('必须输入不少于四位字符的用户名!');
       return;

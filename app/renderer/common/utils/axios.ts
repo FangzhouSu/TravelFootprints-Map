@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-// todo: 暂时启动本地服务
+// 后端项目不上云 暂时通过本地起服务器的方式提供接口 数据库操作
 axios.defaults.baseURL = 'http://127.0.0.1:7002';
 axios.defaults.withCredentials = true;
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
