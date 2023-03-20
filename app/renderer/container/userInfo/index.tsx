@@ -50,7 +50,7 @@ const UserInfo = (userInfo: userInfoProps) => {
     try {
       const { data } = await get('api/user/get_userinfo');
 
-      // TODO: babel-loader 应该是失效了 可选链操作符(?.)用不了
+      // TODO: babel-loader 应该是失效了 可选链操作符(?.)用不了 检查下babel.config.js
       setAvatar(data.avatar);
       setSignature(data.signature);
       setName(data.username);
