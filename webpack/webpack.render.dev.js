@@ -23,6 +23,7 @@ const devConfig = {
     hot: true,
   },
   plugins: [
+    // 生成HTML文件，并将Webpack生成的文件自动注入到HTML文件中。它还可以配置HTML文件的模板和输出路径等选项。
     new HtmlWebpackPlugin({
       // 👇 以此文件为模版，自动生成 HTML
       template: path.resolve(__dirname, '../app/renderer/index.html'),
