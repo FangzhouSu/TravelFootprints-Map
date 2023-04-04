@@ -1,3 +1,4 @@
+// TODO: 引用的地图库不支持 TS 许多类型定义有坑 回头再看看怎么解决这些ts报错
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { get } from '@common/utils/index';
@@ -12,12 +13,18 @@ import {
   ContextMenu,
   ContextMenuItem,
 } from '@uiw/react-amap';
+import { Modal } from 'antd';
 import './index.less';
 import UserInfo from '../userInfo/index';
+import Notes from '../Notes';
 
 function TravelMap() {
   const history = useHistory();
-  // const [postion, setPositon] = useState(null);
+
+  // TODO: 展示笔记的时候需要重新渲染整个应用 包括地图 需要局部渲染Notes组件
+  const [showNotes, setShowNotes] = useState(true);
+  // const showNotes = useRef(true);
+  const currentPosition = useRef<AMap.LngLat | undefined>(undefined);
   const mapRef = useRef<{ map?: AMap.Map }>({});
 
   const lnglat = useRef<AMap.LngLat | undefined>(undefined);
@@ -42,9 +49,25 @@ function TravelMap() {
           map: mapRef.current.map,
           position: lnglat.current, //基点位置
         });
+
+        setShowNotes(true);
+        currentPosition.current = lnglat.current;
+        console.log('父节点-showNotes', showNotes, currentPosition.current);
       }
     }
   }
+
+  const handleOk = () => {
+    console.log('游记记录完成');
+    // showNotes.current = false;
+    setShowNotes(false);
+  };
+
+  const handleCancel = () => {
+    console.log('取消记录游记');
+    // showNotes.current = false;
+    setShowNotes(false);
+  };
 
   const MainMap = () => (
     <div>
@@ -85,6 +108,10 @@ function TravelMap() {
           </ContextMenu>
         </div>
       </Map>
+      <Modal title="游记记录📝" open={showNotes} onOk={handleOk} onCancel={handleCancel}>
+        {/* TODO: 打点位置更改则销毁一个笔记进程并开启另一个笔记进程 为了展示效果 暂时直接打开笔记部分  */}
+        <Notes position={currentPosition.current} />
+      </Modal>
     </div>
   );
 
