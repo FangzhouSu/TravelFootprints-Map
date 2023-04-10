@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Tabs, Form, Input, Button, message } from 'antd';
 import type { TabsProps } from 'antd';
+import Captcha from 'react-captcha-code';
+import { ipcRenderer } from 'electron';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import ROUTER from '@common/constants/router';
 import { post } from '@common/utils/index';
-import Captcha from 'react-captcha-code';
 import './index.less';
 
 interface FormSubmitProps {
@@ -16,7 +17,7 @@ interface FormSubmitProps {
 
 function Login() {
   const history = useHistory();
-  const [captcha, setCaptcha] = useState(''); // 更改后的验证码
+  const captcha = useRef<string>(''); // 更改后的验证码
 
   // 登陆-提交表单信息
   const onLogin = async (values: FormSubmitProps) => {
@@ -39,6 +40,9 @@ function Login() {
         password,
       });
       console.log('the token is:', data.token);
+
+      ipcRenderer.send('change-window-size', { width: 1200, height: 800 });
+
       localStorage.setItem('token', data.token);
       message.success('登陆成功！');
       history.push(ROUTER.map);
@@ -63,7 +67,7 @@ function Login() {
       return;
     }
 
-    if (!verify || verify !== captcha) {
+    if (!verify || verify !== captcha.current) {
       message.error('请确保自己输入正确的验证码!');
       return;
     }
@@ -81,9 +85,9 @@ function Login() {
   };
 
   // 注册-更新验证码
-  const handleCaptchaChange = useCallback((captcha: string) => {
-    console.log(captcha);
-    setCaptcha(captcha);
+  const handleCaptchaChange = useCallback((capt: string) => {
+    console.log(capt);
+    captcha.current = capt;
   }, []);
 
   const loginForm = () => (
