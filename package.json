@@ -1,7 +1,9 @@
 {
   "name": "my-map",
   "version": "0.1.0",
+  "author": "sufangzhou",
   "private": true,
+  "main": "./dist/electron.js",
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@babel/polyfill": "^7.12.1",
@@ -14,15 +16,55 @@
     "axios": "^1.3.4",
     "babel-plugin-import": "^1.13.6",
     "dayjs": "^1.11.7",
-    "electron": "^11.1.1",
     "react": "^17.0.2",
     "react-captcha-code": "^1.0.7",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.0.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
+  },
+  "build": {
+    "appId": "TravelFootPrintsMap.ElectronReact",
+    "productName": "TravelFootPrintsMap",
+    "copyright": "Copyright © 2023 ${author}",
+    "extends": null,
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules/"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "distAssets"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    }
   },
   "scripts": {
     "start:main": "webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.js",
@@ -31,7 +73,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:main": "webpack --config ./webpack/webpack.main.prod.js",
+    "build:render": "webpack --config ./webpack/webpack.render.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +98,7 @@
     ]
   },
   "devDependencies": {
+    "electron": "^11.1.1",
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
@@ -71,6 +118,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.6.0",
+    "electron-builder": "^23.6.0",
     "eslint": "*",
     "eslint-config-alloy": "^4.7.0",
     "eslint-config-prettier": "^8.5.0",

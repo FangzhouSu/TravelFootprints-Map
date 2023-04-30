@@ -1,6 +1,6 @@
 // TODO: 引用的地图库不支持 TS 许多类型定义有坑 回头再看看怎么解决这些ts报错
 import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { get } from '@common/utils/index';
 import {
   Map,
@@ -19,10 +19,10 @@ import UserInfo from '../userInfo/index';
 import Notes from '../Notes';
 
 function TravelMap() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // TODO: 展示笔记的时候需要重新渲染整个应用 包括地图 需要局部渲染Notes组件
-  const [showNotes, setShowNotes] = useState(true);
+  const [showNotes, setShowNotes] = useState(false);
   // const showNotes = useRef(true);
   const currentPosition = useRef<AMap.LngLat | undefined>(undefined);
   const mapRef = useRef<{ map?: AMap.Map }>({});
@@ -73,7 +73,7 @@ function TravelMap() {
     <div>
       <Map
         ref={mapRef}
-        style={{ width: '100vw', height: '100vh' }}
+        style={{ height: '80vh' }}
         onRightClick={(e) => {
           lnglat.current = e.lnglat;
         }}

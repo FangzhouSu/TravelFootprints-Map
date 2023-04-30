@@ -2,10 +2,10 @@
  * @desc electron 主入口
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 
 function isDev() {
-  // 👉 还记得我们配置中通过 webpack.DefinePlugin 定义的构建变量吗
+  // 👉 配置中通过 webpack.DefinePlugin 定义构建变量
   return process.env.NODE_ENV === 'development';
 }
 
@@ -33,4 +33,16 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+const ROOT_PATH = path.join(app.getAppPath(), '../');
+
+ipcMain.on('get-root-path', (event, arg) => {
+  event.reply('reply-root-path', ROOT_PATH);
+});
+
+ipcMain.on('change-window-size', (event, arg) => {
+  const mainWindow = BrowserWindow.getFocusedWindow();
+  mainWindow?.setSize(arg.width, arg.height);
+  mainWindow?.center();
 });

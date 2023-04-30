@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import type { MenuProps } from 'antd';
 import { Avatar, Dropdown, Modal, Space, Form, Input, message, Upload, Button } from 'antd';
+import { ipcRenderer } from 'electron';
 import { UploadOutlined } from '@ant-design/icons';
 import { get, post } from '@common/utils/index';
 import { baseUrl } from '@common/config/index';
@@ -27,7 +28,7 @@ interface userInfoProps {
 // }
 
 const UserInfo = (userInfo: userInfoProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,6 +85,12 @@ const UserInfo = (userInfo: userInfoProps) => {
     setIsModalOpen(false);
   };
 
+  const exitLogin = () => {
+    localStorage.removeItem('token');
+    navigate(ROUTER.login);
+    ipcRenderer.send('change-window-size', { width: 480, height: 600 });
+  };
+
   // TODO: file的类型 & 回头再做上传头像功能
   // const handleSelect = (file: any) => {
   //   console.log('file.file', file.file);
@@ -130,7 +137,7 @@ const UserInfo = (userInfo: userInfoProps) => {
     },
 
     {
-      label: <div onClick={() => history.push(ROUTER.login)}>退出登录</div>,
+      label: <div onClick={exitLogin}>退出登录</div>,
       key: '4',
     },
   ];

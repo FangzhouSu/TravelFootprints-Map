@@ -1,5 +1,5 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -38,5 +38,6 @@ module.exports = {
   },
 
   // 目录在每次重新编译时自动清理输出目录(dist)中的文件。这可以确保每次编译时不会留下之前编译的文件。
-  plugins: [new CleanWebpackPlugin()],
+  // 打包之后还需要保留之前的文件 所以停用这个插件
+  // plugins: [new CleanWebpackPlugin()],
 };

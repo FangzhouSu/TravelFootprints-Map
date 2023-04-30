@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Tabs, Form, Input, Button, message } from 'antd';
 import type { TabsProps } from 'antd';
 import Captcha from 'react-captcha-code';
@@ -16,7 +16,7 @@ interface FormSubmitProps {
 }
 
 function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const captcha = useRef<string>(''); // 更改后的验证码
 
   // 登陆-提交表单信息
@@ -45,7 +45,7 @@ function Login() {
 
       localStorage.setItem('token', data.token);
       message.success('登陆成功！');
-      history.push(ROUTER.map);
+      navigate(ROUTER.system);
     } catch (error: any) {
       message.error(error.msg);
     }

@@ -1,8 +1,12 @@
 // 模块路径
 const ROUTER = {
   root: '/',
+  system: '/system',
+  map: '/system/map',
+  notelist: '/system/notelist',
+  travelplan: '/system/travelplan',
+  footprint: '/system/footprint',
   login: '/login',
-  map: '/map',
 };
 
 export default ROUTER;
