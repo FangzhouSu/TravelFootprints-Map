@@ -26,6 +26,7 @@
     "app/**/*.d.ts",
     "app/renderer/container/Title/index.tsx",
     "app/renderer/container/map/index.tsx",
-    "app/renderer/container/Notes/index.tsx"
+    "app/renderer/container/Notes/index.tsx",
+    "app/renderer/container/TravelPlan/Whiteboard/index.jsx" // "app/renderer/container/TravelPlan/Whiteboard/index.jsx"
   ]
 }

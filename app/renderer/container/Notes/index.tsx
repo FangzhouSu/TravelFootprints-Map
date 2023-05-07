@@ -5,29 +5,24 @@ import { Modal } from 'antd';
 // import "@uiw/react-md-editor/dist/markdown-editor.css";
 
 interface NotesProps {
-  position: AMap.LngLat | undefined;
+  position?: AMap.LngLat | undefined;
+  mkdSTR: string;
+  preview?: string;
 }
 
 const mkdStr = `
-# 记录电子科大一日游📝
-
----
+# 记录电子科技大学一日游📝
 
 **Hello world!!!**
 
 [![](https://avatars.githubusercontent.com/u/75036021?v=4)](https://github.com/FangzhouSu)
 
-\`\`\`javascript
-import React from "react";
-import ReactDOM from "react-dom";
-import MEDitor from '@uiw/react-md-editor';
-thanks for @uiw's library's support.
-\`\`\`
+
 `;
 
 export default function Notes(props: NotesProps) {
-  const { position } = props;
-  const [value, setValue] = React.useState(mkdStr);
+  const { position, mkdSTR, preview } = props;
+  const [value, setValue] = React.useState(mkdSTR);
 
   useEffect(() => {
     console.log('note位置', position);
@@ -35,8 +30,9 @@ export default function Notes(props: NotesProps) {
 
   return (
     // 根据show的true/false 显示或者隐藏一个Modal
+    // preview?: 'live' | 'edit' | 'preview' Default value live, Show markdown preview.
     <div data-color-mode="light">
-      <MDEditor height={400} value={value} onChange={setValue} />
+      <MDEditor height={400} value={value} preview={preview} onChange={setValue} />
     </div>
   );
 }

@@ -69,7 +69,12 @@ const System = () => {
 
   return (
     <Layout styleName="system">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}
+      >
         <div className="logo" />
         <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -86,7 +91,7 @@ const System = () => {
           onClick={changeRouter}
         />
       </Sider>
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={{ marginLeft: 200, overflow: 'scroll' }}>
         <Header className="site-layout-background" style={{ padding: 0 }}>
           {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
@@ -96,7 +101,8 @@ const System = () => {
         <Content
           className="site-layout-background"
           style={{
-            margin: '24px 16px',
+            margin: '24px 16px 0',
+            overflow: 'initial',
             padding: 24,
             minHeight: 280,
           }}

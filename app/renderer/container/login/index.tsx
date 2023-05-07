@@ -44,7 +44,7 @@ function Login() {
       ipcRenderer.send('change-window-size', { width: 1200, height: 800 });
 
       localStorage.setItem('token', data.token);
-      message.success('登陆成功！');
+      message.success('登录成功！');
       navigate(ROUTER.system);
     } catch (error: any) {
       message.error(error.msg);
@@ -110,6 +110,7 @@ function Login() {
         <Button type="primary" htmlType="submit" className="login-form-button">
           登录
         </Button>
+        <a styleName="forgetCode">忘记密码</a>
       </Form.Item>
     </Form>
   );
@@ -148,7 +149,7 @@ function Login() {
   const items: TabsProps['items'] = [
     {
       key: 'login',
-      label: `登陆`,
+      label: `登录`,
       children: loginForm(),
     },
     {

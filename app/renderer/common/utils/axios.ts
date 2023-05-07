@@ -16,7 +16,7 @@ axios.interceptors.response.use((res) => {
   if (res.data.code != 200) {
     if (res.data.msg) console.error('返回数据有误!msg如下:', res.data.msg);
     if (res.data.code == 401) {
-      // window.location.href = '/login';
+      window.location.href = '/login';
     }
     if (res.data.code == 413) {
       message.error('图片不得超过 50kb');

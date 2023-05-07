@@ -142,6 +142,14 @@ const UserInfo = (userInfo: userInfoProps) => {
     },
   ];
 
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e.fileList;
+  };
+
   // 上传头像-设置如何将 event 的值转换成字段值
   // const normFile = (e: any) => {
   //   console.log('Upload event:', e);
@@ -183,12 +191,29 @@ const UserInfo = (userInfo: userInfoProps) => {
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            extra="请上传头像"
+            extra="longgggggggggggggggggggggggggggggggggg"
           >
-            <Upload name="logo" onChange={handleSelect} listType="picture">
+            <Upload name="logo" action="/upload.do" listType="picture">
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item> */}
+          <Form.Item
+            name="logo"
+            label="修改头像"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            extra="请上传头像"
+          >
+            <Upload name="logo" action="/upload.do" listType="picture">
+              <Button icon={<UploadOutlined />}>点击进行头像上传</Button>
+            </Upload>
+            {/* <Upload name="logo" onChange={handleSelect} listType="picture">
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload> */}
+            {/* <Upload name="logo" listType="picture">
+              <Button icon={<UploadOutlined />}>点击以上传头像</Button>
+            </Upload> */}
+          </Form.Item>
         </Form>
       </Modal>
     </>

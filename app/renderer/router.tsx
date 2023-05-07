@@ -15,15 +15,15 @@ function Router() {
     <HashRouter>
       <Routes>
         {/* root页-默认路由 */}
-        {/* <Route element={<Root />} path={ROUTER.root}></Route> */}
+        <Route element={<Root />} path={ROUTER.root}></Route>
 
         {/* 登陆页 */}
-        {/* <Route element={<Login />} path={ROUTER.login}></Route> */}
+        <Route element={<Login />} path={ROUTER.login}></Route>
 
         {/* 系统主页 */}
         <Route element={<System />} path={ROUTER.system}>
           {/* 地图主页 */}
-          <Route element={<TravelMap />} path={ROUTER.system}></Route>
+          <Route element={<TravelMap ifSearch />} path={ROUTER.system}></Route>
           {/* 游记列表 */}
           <Route element={<NoteList />} path={ROUTER.notelist}></Route>
           {/* 规划旅行计划 */}
@@ -33,8 +33,8 @@ function Router() {
         </Route>
 
         {/* 默认路由-root页 */}
-        {/* <Route path="*" element={<Navigate to={ROUTER.root} />}></Route> */}
-        <Route path="*" element={<Navigate to={ROUTER.system} />}></Route>
+        <Route path="*" element={<Navigate to={ROUTER.root} />}></Route>
+        {/* <Route path="*" element={<Navigate to={ROUTER.system} />}></Route> */}
       </Routes>
     </HashRouter>
   );
